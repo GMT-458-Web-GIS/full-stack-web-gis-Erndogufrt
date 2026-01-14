@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Anadolu Fatihi: Son Sefer</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="auth-screen" class="dark-overlay">
+        <div id="login-box" class="login-card">
+            <div class="emblem">🛡️</div>
+            <h2>GİRİŞ YAP</h2>
+            <div class="input-container">
+                <input type="email" id="login-email" placeholder="E-Posta" required>
+                <input type="password" id="login-password" placeholder="Şifre" required>
+            </div>
+            <button id="btn-login" class="warrior-btn">SEFERE BAŞLA</button>
+            <button id="btn-guest" class="ghost-btn">MİSAFİR DEVAM ET</button>
+            <div class="footer-links">
+                <p>Birliğe katılmak ister misin? <a href="#" onclick="toggleAuth()">Kayıt Ol</a></p>
+            </div>
+        </div>
+
+        <div id="signup-box" class="login-card hidden">
+            <div class="emblem">📜</div>
+            <h2>KAYIT OL</h2>
+            <div class="input-container">
+                <input type="text" id="signup-name" placeholder="Şehzade Adı" required>
+                <input type="email" id="signup-email" placeholder="E-Posta" required>
+                <input type="password" id="signup-password" placeholder="Şifre" required>
+            </div>
+            <button id="btn-signup-submit" class="warrior-btn">BİRLİĞE KATIL</button>
+            <div class="footer-links">
+                <p>Zaten bir hesabın var mı? <a href="#" onclick="toggleAuth()">Giriş Yap</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="intro-screen" class="hidden">
+        <div class="box">
+            <h1 class="title">ANADOLU FATİHİ</h1>
+            <p class="story-text" id="story-writer"></p>
+            <button id="start-btn" onclick="startGame()" disabled>HARİTA OLUŞTURULUYOR...</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <div id="map"></div>
+        <div id="stats">
+            <div>⏳ <span id="timer">60</span> sn</div>
+            <div>⚔️ FETİH: <span id="score">0</span></div>
+            <div>💀 KAYIP: <span id="fail">0</span></div>
+        </div>
+        <div id="quest-card">
+            <h3>KAHİNİN SORUSU</h3>
+            <p id="riddle-text">...</p>
+        </div>
+    </div>
+<div id="end-screen" class="hidden">
+    <div class="box">
+        <h1 id="end-title" class="title">SEFER SONUCU</h1>
+        <p id="end-msg" class="subtitle">...</p>
+        
+        <div id="leaderboard-section" style="margin: 20px 0; padding: 15px; border: 1px solid #c5a059; background: rgba(0,0,0,0.5);">
+            <h3 style="color: #c5a059; margin-bottom: 10px; font-size: 1rem;">🏆 EN İYİ 5 FATİH</h3>
+            <ul id="leaderboard-list" style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                <li>Yükleniyor...</li>
+            </ul>
+        </div>
+
+        <button onclick="location.reload()" class="warrior-btn">YENİDEN SEFERE ÇIK</button>
+    </div>
+</div>
+
+    <script type="module" src="script.js"></script>
+    <script src="harita.js"></script>
+</body>
+</html>
