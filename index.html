@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="mode-selector" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px;">
+    <label style="cursor: pointer;">
+        <input type="radio" name="game-mode" value="explorer" checked> 
+        <span style="color: #00e5ff;">🏰 ŞEHZADE (Süresiz)</span>
+    </label>
+    <label style="cursor: pointer;">
+        <input type="radio" name="game-mode" value="conqueror"> 
+        <span style="color: #ffd700;">⚔️ FATİH (60 Sn)</span>
+    </label>
+</div>
     <div id="auth-screen" class="dark-overlay">
         <div id="login-box" class="login-card">
             <div class="emblem">🛡️</div>
@@ -18,6 +28,7 @@
             </div>
             <button id="btn-login" class="warrior-btn">SEFERE BAŞLA</button>
             <button id="btn-guest" class="ghost-btn">MİSAFİR DEVAM ET</button>
+            <button id="btn-admin" class="ghost-btn" style="border-color: #ff4444; color: #ff4444; margin-top: 5px; font-size: 0.7rem;">VEZİR-İ AZAM GİRİŞİ (Admin)</button>
             <div class="footer-links">
                 <p>Birliğe katılmak ister misin? <a href="#" onclick="toggleAuth()">Kayıt Ol</a></p>
             </div>
@@ -39,6 +50,18 @@
     </div>
 
     <div id="intro-screen" class="hidden">
+        <div id="region-selection" style="margin-top: 20px; padding: 15px; border-top: 1px solid #c5a059;">
+        <p class="tagline" style="color: #ffd700;">SEFER BÖLGESİ SEÇİNİZ</p>
+        <div class="region-buttons" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+            <button onclick="setRegion('TÜMÜ')" class="ghost-btn active-region" style="font-size: 0.7rem; padding: 8px;">TÜM ANADOLU</button>
+            <button onclick="setRegion('MARMARA')" class="ghost-btn" style="font-size: 0.7rem; padding: 8px;">MARMARA</button>
+            <button onclick="setRegion('EGE')" class="ghost-btn" style="font-size: 0.7rem; padding: 8px;">EGE</button>
+            <button onclick="setRegion('İÇ ANADOLU')" class="ghost-btn" style="font-size: 0.7rem; padding: 8px;">İÇ ANADOLU</button>
+            <button onclick="setRegion('AKDENİZ')" class="ghost-btn" style="font-size: 0.7rem; padding: 8px;">AKDENİZ</button>
+            <button onclick="setRegion('KARADENİZ')" class="ghost-btn" style="font-size: 0.7rem; padding: 8px;">KARADENİZ</button>
+            <button onclick="setRegion('DOĞU ANADOLU')" class="ghost-btn" style="font-size: 0.7rem; padding: 8px;">DOĞU ANADOLU</button>
+        </div>
+    </div>
         <div class="box">
             <h1 class="title">ANADOLU FATİHİ</h1>
             <p class="story-text" id="story-writer"></p>
@@ -71,6 +94,18 @@
         </div>
 
         <button onclick="location.reload()" class="warrior-btn">YENİDEN SEFERE ÇIK</button>
+    </div>
+</div>
+<div id="admin-panel" class="hidden dark-overlay">
+    <div class="login-card" style="width: 80%; max-width: 600px;">
+        <div class="emblem">📜</div>
+        <h2>VEZİR-İ AZAM PANELİ</h2>
+        <p class="tagline">Kadim bilgileri buradan güncelleyebilirsin.</p>
+        
+        <div id="admin-riddle-list" style="max-height: 400px; overflow-y: auto; text-align: left; margin-bottom: 20px; padding: 10px; background: #151515; border: 1px solid #333;">
+            </div>
+
+        <button onclick="closeAdminPanel()" class="ghost-btn">DİVANDAN AYRIL</button>
     </div>
 </div>
 
