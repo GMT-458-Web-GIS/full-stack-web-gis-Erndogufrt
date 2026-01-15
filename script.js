@@ -217,7 +217,7 @@ const riddles = {
 
 window.onload = function() {
     const btn = document.getElementById('start-btn');
-    const storyText = "Yüzyıllardır beklenen an geldi Komutan... Kadim Anadolu toprakları, ismini bilen gerçek sahibini arıyor. Kahinin sorularını cevapla, sınırları zihninle çiz. Ama dikkat et, zaman aleyhine işliyor! Hazır mısın?";
+    const storyText = "Yüzyıllardır beklenen an geldi... Kadim Anadolu toprakları, ismini bilen gerçek sahibini arıyor. Kahinin sorularını cevapla, sınırları zihninle çiz. Ama dikkat et, zaman aleyhine işliyor! Hazır mısın?";
     
     const writerElement = document.getElementById('story-writer');
     let i = 0;
@@ -409,7 +409,7 @@ function checkAnswer(clickedLayer) {
             }
         }, 1000);
 
-        // Doğru ili ipucu olarak göster (Kırmızı yanıp sönme)
+
         geoJsonLayer.eachLayer(layer => {
             if (layer.cityName === targetName) {
                 layer.setStyle({ color: 'red', weight: 4, dashArray: '10, 10' });
@@ -454,7 +454,7 @@ function updateUI() {
 }
 
 function endGame(timeOut = false) {
-    // Skor 0'dan büyükse ve misafir değilse kaydet ✨
+
     if (score > 0) {
         saveScoreToFirebase(score);
     }
@@ -469,7 +469,7 @@ function endGame(timeOut = false) {
 
         if (timeOut) {
             title = "⏳ SÜRE DOLDU!";
-            msg = `Zaman tükendi Komutan! Skorun: ${score}`;
+            msg = `Zaman tükendi! Skorun: ${score}`;
         } else if (score > fails) {
             title = "👑 ZAFER SENİNDİR!";
         } else {
@@ -479,15 +479,13 @@ function endGame(timeOut = false) {
         document.getElementById('end-title').innerText = title;
         document.getElementById('end-msg').innerText = msg;
     }, 500);
-    // endGame içindeki o başlık satırına bir 'onclick' ekleyebilirsin veya otomatik çağırabilirsin ✨
+   
     setTimeout(() => {
         updateLeaderboardUI(); 
     }, 1000);
 }
 
-// --- MİSAFİR VE SKOR FARKI (EN ALTA YAPIŞTIR) ---
 
-// Misafir butonunu canlandırıyoruz ✨
 document.getElementById('btn-guest').addEventListener('click', () => {
     document.getElementById('auth-screen').style.display = 'none'; // Siyah perdeyi kapat
     const intro = document.getElementById('intro-screen');
@@ -495,14 +493,14 @@ document.getElementById('btn-guest').addEventListener('click', () => {
         intro.classList.remove('hidden'); // Hikayeyi göster
     }
     
-    // Ekrana Misafir yazdıralım 📜
+
     const statsDiv = document.getElementById('stats');
     if(statsDiv && !document.getElementById('user-display')) {
-        statsDiv.insertAdjacentHTML('afterbegin', `<div id="user-display" style="color:#aaa; font-weight:bold; margin-bottom:5px;">KOMUTAN: MİSAFİR (Antrenman Modu)</div>`);
+        statsDiv.insertAdjacentHTML('afterbegin', `<div id="user-display" style="color:#aaa; font-weight:bold; margin-bottom:5px;">ŞEHZADE: MİSAFİR (Antrenman Modu)</div>`);
     }
 });
 
-// Kayıt fonksiyonunu da misafirleri ayıracak şekilde güncelleyelim 🔒
+
 async function saveScoreToFirebase(finalScore) {
     const user = auth.currentUser;
     if (!user) {
@@ -523,7 +521,7 @@ async function saveScoreToFirebase(finalScore) {
 
 import { query, orderBy, limit} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Liderlik Tablosunu Getir ✨
+
 async function getLeaderboard() {
     const leaderboardList = document.getElementById('leaderboard-list');
     leaderboardList.innerHTML = ""; // Temizle
@@ -542,17 +540,15 @@ async function getLeaderboard() {
         leaderboardList.innerHTML = "<li>Henüz kayıtlı fatih yok.</li>";
     }
 }
-// endGame içindeki saveScoreToFirebase(score); satırının hemen altına ekle:
+
 setTimeout(() => {
-    getLeaderboard(); // Skorları çek ve listele ✨
+    getLeaderboard(); 
 }, 1000);
 
-// --- ADMIN PANELİ FONKSİYONLARI ---
 
-// 1. Admin Giriş Butonuna Basıldığında ✨
 document.getElementById('btn-admin').addEventListener('click', () => {
     const sifre = prompt("Vezir-i Azam şifresini giriniz:");
-    if (sifre === "fatih1453") { // Şifreyi dilediğin gibi değiştirebilirsin tatlım 💖
+    if (sifre === "fatih1453") { 
         openAdminPanel();
     } else {
         alert("Destur! Şifre hatalıdır.");
@@ -562,9 +558,9 @@ document.getElementById('btn-admin').addEventListener('click', () => {
 function openAdminPanel() {
     document.getElementById('admin-panel').classList.remove('hidden');
     const listContainer = document.getElementById('admin-riddle-list');
-    listContainer.innerHTML = ""; // Önce temizle ✨
+    listContainer.innerHTML = ""; 
 
-    // Mevcut bilmeceleri listele
+
     Object.keys(riddles).forEach(sehir => {
         listContainer.innerHTML += `
             <div style="border-bottom: 1px solid #333; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
@@ -578,12 +574,11 @@ function openAdminPanel() {
     });
 }
 
-// Bilmece Düzenleme Fonksiyonu ✍️
 window.editRiddle = function(sehir) {
     const yeniBilmece = prompt(`${sehir} için yeni bilmeceyi girin:`, riddles[sehir]);
     if (yeniBilmece) {
-        riddles[sehir] = yeniBilmece; // Geçici olarak günceller ✨
-        openAdminPanel(); // Listeyi tazele
+        riddles[sehir] = yeniBilmece; 
+        openAdminPanel(); 
         alert(`${sehir} bilgeliği güncellendi!`);
     }
 };
@@ -593,8 +588,6 @@ window.closeAdminPanel = function() {
 };
 
 
-
-// --- TÜM BİLMECELERİ FİREBASE'E TEK SEFERDE YÜKLE ---
 async function setupDatabase() {
     console.log("Database inşası başlıyor... 🏗️");
     for (const sehir in riddles) {
@@ -610,7 +603,6 @@ async function setupDatabase() {
     alert("Vezir-i Azam, tüm bilmeceler veritabanına nakşedildi! 📜");
 }
 
-// Liderlik Tablosunu Getir ve Göster ✨
 async function updateLeaderboardUI() {
     const leaderboardList = document.getElementById('leaderboard-list');
     if (!leaderboardList) return;
@@ -618,15 +610,14 @@ async function updateLeaderboardUI() {
     leaderboardList.innerHTML = "<li>Destanlar yükleniyor...</li>";
 
     try {
-        // En yüksek 5 skoru çekiyoruz 👑
+
         const q = query(collection(db, "skorlar"), orderBy("skor", "desc"), limit(5));
         const querySnapshot = await getDocs(q);
         
-        leaderboardList.innerHTML = ""; // Temizle
+        leaderboardList.innerHTML = ""; 
         
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            // Email'in başını kullanıcı adı olarak alalım (dilo@... -> DILO)
             const name = data.kullanici ? data.kullanici.split('@')[0].toUpperCase() : "FATİH";
             leaderboardList.innerHTML += `
                 <li style="margin-bottom:8px; padding:5px; border-bottom:1px solid #333; list-style:none;">
@@ -643,17 +634,15 @@ async function updateLeaderboardUI() {
     }
 }
 
-// --- DİLOŞ'UN ÖZEL FİNAL DOKUNUŞLARI ---
 
-// 1. ŞEHZADE MODUNDA SÜREYİ YOK ETME (KESİN ÇÖZÜM) 🕵️‍♀️
-const originalUpdateUI = updateUI; // Mevcut fonksiyonu koruyalım
+const originalUpdateUI = updateUI; 
 updateUI = function() {
-    originalUpdateUI(); // Önce normal işlerini yapsın
+    originalUpdateUI(); 
     
     const statsBox = document.getElementById('stats');
     if (statsBox) {
         const timerRow = statsBox.querySelector('div:first-child');
-        // Eğer Şehzade (Explorer) modundaysak süreyi komple sil ✨
+
         if (window.currentGameMode === "explorer" && timerRow && timerRow.innerHTML.includes('⏳')) {
             timerRow.style.display = 'none'; 
         } else if (timerRow) {
@@ -662,7 +651,6 @@ updateUI = function() {
     }
 };
 
-// 2. VEZİR-İ AZAM PANELİ GÜNCELLEME (DATABASE BAĞLANTISI) 💾
 window.editRiddle = async function(sehir) {
     const eskiMetin = riddles[sehir] || "";
     const yeniBilmece = prompt(`${sehir} için yeni bilmeceyi girin:`, eskiMetin);
@@ -671,10 +659,10 @@ window.editRiddle = async function(sehir) {
         try {
             console.log(`${sehir} için mühür basılıyor... 🚀`);
             
-            // Firebase modüllerini anlık ve zorlayıcı çağırıyoruz ✨
+
             const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
             
-            // 'db' değişkeninin yukarıda tanımlı olduğunu varsayıyoruz
+
             await setDoc(doc(db, "bilmeceler", sehir), {
                 text: yeniBilmece
             }, { merge: true });
@@ -692,12 +680,9 @@ window.editRiddle = async function(sehir) {
     }
 };
 
-console.log("Diloş'un final yamaları başarıyla yüklendi! 🏰🛡️✨");
+console.log(" final yamaları başarıyla yüklendi! 🏰🛡️✨");
 
 
-// --- DİLOŞ'UN AKILLI BÖLGE ATAMA SİSTEMİ (NİHAİ SADELEŞTİRME) ✨ ---
-
-// 1. Bölgelere göre illeri tek bir yerde mühürleyelim ✨
 const assignmentData = {
     "MARMARA": ["İstanbul", "Edirne", "Kırklareli", "Tekirdağ", "Çanakkale", "Kocaeli", "Yalova", "Sakarya", "Bilecik", "Bursa", "Balıkesir"],
     "EGE": ["İzmir", "Aydın", "Muğla", "Manisa", "Denizli", "Uşak", "Kütahya", "Afyonkarahisar"],
@@ -708,7 +693,6 @@ const assignmentData = {
     "GÜNEYDOĞU ANADOLU": ["Gaziantep", "Diyarbakır", "Şanlıurfa", "Mardin", "Adıyaman", "Kilis", "Siirt", "Şırnak", "Batman"]
 };
 
-// 2. Bölge Seçim Butonları (Sadece Kaydeder, Yakınlaştırma Yapmaz) 🛡️
 window.setRegion = function(region) {
     window.selectedRegion = region;
     console.log(`Hedef Bölge Kaydedildi: ${region} 🏹`);
@@ -720,31 +704,26 @@ window.setRegion = function(region) {
 };
 
 
-// --- ANADOLU FATİHİ NİHAİ HARİTA CANLANDIRICI ---
-
-// Oyun başladığında haritayı uyandıran tek fonksiyon ✨
 window.repairMapDisplay = function() {
     if (window.map) {
         console.log("Harita Sultanın emriyle canlandırılıyor... 🪄");
-        window.map.invalidateSize(); // Siyah ekranı yok eden asıl sihir! ✅
-        window.map.setView([39.0, 35.5], 6); // Haritayı ortala
+        window.map.invalidateSize(); 
+        window.map.setView([39.0, 35.5], 6); 
     }
 };
 
-// --- ANADOLU FATİHİ NİHAİ YÖNETİM MERKEZİ ✨ ---
+
 window.startGame = async function() {
     console.log("Sefer emri verildi! ⚔️");
 
-    // 1. HARİTAYI KUR (Eğer kurulmadıysa) 🗺️
+
     if (!window.map) {
         initMap();
     }
 
-    // 2. BİLMECELERİ ÇEK 📜
+  
     await loadRiddlesFromFirebase();
 
-    // 3. BÖLGE FİLTRELEME (ASSIGNMENT) 🏹✨
-    // 'assignmentData' değişkeninin yukarıda tanımlı olduğundan emin ol tatlım!
     let features = mapData.features.filter(f => f.geometry.type !== 'Point' && riddles[f.properties.name]);
     
     if (window.selectedRegion && window.selectedRegion !== "TÜMÜ" && typeof assignmentData !== 'undefined') {
@@ -754,13 +733,13 @@ window.startGame = async function() {
         }
     }
 
-    // 4. SORULARI HAZIRLA ✨
+ 
     activeQuests = features.map(f => ({
         name: f.properties.name,
         riddle: riddles[f.properties.name]
     })).sort(() => Math.random() - 0.5);
 
-    // HATA KORUMASI: Eğer liste boşsa her şeyi getir ✨
+ 
     if (activeQuests.length === 0) {
         activeQuests = mapData.features
             .filter(f => f.geometry.type !== 'Point' && riddles[f.properties.name])
@@ -768,23 +747,22 @@ window.startGame = async function() {
             .sort(() => Math.random() - 0.5);
     }
 
-    // 5. EKRAN GEÇİŞİ 🏰
     document.getElementById('intro-screen').classList.add('hidden');
     document.getElementById('game-screen').classList.remove('hidden');
 
-    // 6. MOD KONTROLÜ VE ZAMANLAYICI (FATİH MODU DÜZELTMESİ) ⏳✨
+
     currentQ = 0; score = 0; fails = 0;
     updateUI();
 
     const isConqueror = document.querySelector('input[value="conqueror"]')?.checked;
     if (isConqueror) {
         window.currentGameMode = "conqueror";
-        startTimer(); // Süreyi buradan fırlatıyoruz! 🚀
+        startTimer(); 
     } else {
         window.currentGameMode = "explorer";
     }
 
-    // 7. HARİTAYI GÖRÜNÜR KIL ✅
+   
     setTimeout(() => {
         if (window.map) {
             window.map.invalidateSize();
