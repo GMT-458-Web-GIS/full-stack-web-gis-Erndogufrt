@@ -20,7 +20,9 @@
 </div>
     <div id="auth-screen" class="dark-overlay">
         <div id="login-box" class="login-card">
-            <div class="emblem">🛡️</div>
+            <div class="emblem">
+                ⚔️ <span>ANADOLU FATİHİ</span> ⚔️
+            </div>
             <h2>GİRİŞ YAP</h2>
             <div class="input-container">
                 <input type="email" id="login-email" placeholder="E-Posta" required>
@@ -28,7 +30,7 @@
             </div>
             <button id="btn-login" class="warrior-btn">SEFERE BAŞLA</button>
             <button id="btn-guest" class="ghost-btn">MİSAFİR DEVAM ET</button>
-            <button id="btn-admin" class="ghost-btn" style="border-color: #ff4444; color: #ff4444; margin-top: 5px; font-size: 0.7rem;">VEZİR-İ AZAM GİRİŞİ (Admin)</button>
+            <button id="btn-admin" class="ghost-btn" style="border-color: #ffd700; color: #ffd700; margin-top: 8px; font-size: 0.7rem;">VEZİR-İ AZAM GİRİŞİ (Admin)</button>
             <div class="footer-links">
                 <p>Birliğe katılmak ister misin? <a href="#" onclick="toggleAuth()">Kayıt Ol</a></p>
             </div>
@@ -72,7 +74,7 @@
     <div id="game-screen" class="hidden">
         <div id="map"></div>
         <div id="stats">
-            <div>⏳ <span id="timer">60</span> sn</div>
+            <div class="timer-row">⏳ <span id="timer">60</span> sn</div>
             <div>⚔️ FETİH: <span id="score">0</span></div>
             <div>💀 KAYIP: <span id="fail">0</span></div>
         </div>
@@ -113,3 +115,4 @@
     <script src="harita.js"></script>
 </body>
 </html>
+
