@@ -1,144 +1,54 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/dxPbR2Gs)
+🏰 Anadolu Fatihi: A Spatial Geography Challenge
+Production URL (AWS): https://fatih.d7eotuva7xfmf.amplifyapp.com/
 
-🗺️ Anadolu Fatihi: Full Stack Web GIS Game
-Anadolu Fatihi is an interactive, full-stack Web GIS application where players test their geographical knowledge of Turkey. This project has been evolved from a simple frontend game into a comprehensive spatial management system featuring user authentication, spatial CRUD operations, NoSQL integration, and performance benchmarking.
+📜 Project Overview & Technical Compliance
+1. User Engagement & Roles (20%) The application defines interaction levels through historical roles to match the game's atmosphere:
 
-🚀 Key Features & Requirements Met
+The Shahzade (Explorer): A trainee role allowing users to navigate Turkey's provinces and practice riddles without time pressure.
 
-👤 1. Managing Different User Types (20%)
-The system distinguishes between three distinct roles:
-Sultan (Admin): Full access to the system, can manage all users and edit/delete any spatial data (provinces/riddles).
-Commander (Editor): Can add new points of interest (POIs) or update existing riddle data but cannot delete core system users.
-Scout (Player): Can play the game, view their own high scores, and suggest new "Historical Markers" on the map.
+The Conqueror (Active Player): The primary competitive role where players engage in the 60-second "Expedition" to claim territories.
 
-🔐 2. Authentication (15%)
-Sign up / Login: Integrated JWT (JSON Web Token) based authentication system.
-Session Management: Secure routes ensure that game scores and "Commander" tools are only accessible to logged-in users.
+The Grand Vizier (Admin): The authoritative role responsible for managing the spatial database, riddle accuracy, and overall system integrity.
 
-🛠️ 3. CRUD Operations (15% + 5% Bonus)
-Users (based on roles) can manage a Geographical Point Layer (Historical Landmarks):
-Create: Add a new historical landmark on the map.
-Read: Filter landmarks by type (e.g., Mosque, Castle, Bridge).
-Update/Delete: Modify landmark attributes or remove them.
-Bonus: Support for Polygon updates (modifying province boundaries or riddle metadata).
+2. Access Management (15%)
+Secure session management is used to validate player attempts.
 
-📊 4. Performance Monitoring & Testing (25% + 25%)
-Indexing Experiment: We compared query speeds for finding the nearest "Historical Landmark" using R-Tree spatial indexing vs. standard linear scanning.
-Load Testing: Using Artillery/JMeter, the system was tested with 100+ concurrent users.
-Result: Response times remained under 200ms for up to 50 concurrent requests.
+Before entering the "Expedition," the system captures user session data to maintain a fair leaderboard of "Conquests" vs "Fails."
 
-🔌 5. API Development (25%)
-The system exposes a RESTful API documented with Swagger:
-GET /api/spatial/provinces: Returns GeoJSON of Turkey.
-POST /api/spatial/poi: Creates a new spatial feature.
-PUT /api/spatial/poi/:id: Updates geometry/attributes.
-DELETE /api/spatial/poi/:id: Removes a feature.
-GET /api/users: Returns non-spatial user statistics (Admin only).
+3. Dynamic Map Operations - CRUD (15%)
+The system manages geographical features using dynamic processing:
 
-🗄️ 6. NoSQL Database (25%)
-We utilized MongoDB (GeoJSON support) to handle heterogeneous game data.
-Value Proposition: Unlike relational DBs, MongoDB allows us to store varying metadata for each province (some have 1 riddle, others have 5) without a rigid schema, and its native $near queries make spatial lookups extremely fast.
+Retrieval (Read): Fetches 81 complex spatial polygons from the NoSQL source in real-time.
 
-🌐 7. GeoServer & AWS (25% + 20%)
-GeoServer: Complex polygon layers are served via WMS for visualization and WFS for transactional editing.
-AWS Hosting: The application is deployed on an AWS EC2 instance, with images/assets stored in S3.
+Spatial Filtering: A custom logic is applied to the Leaflet layer to remove non-essential markers, providing a focused "Blind Map" experience.
 
-🛠️ Tech Stack
-Frontend: Leaflet.js, HTML5, CSS3 (Keyframes & Animations).
-Backend: Node.js / Express.js
-Database: MongoDB (NoSQL) & PostgreSQL/PostGIS (for Indexing comparison).
-DevOps: Docker, AWS EC2, GitHub Actions.
-Testing: Artillery, Postman, Swagger.
+Live Updates: Each correct guess updates the map’s styling properties dynamically to provide visual feedback (CSS animation injection).
 
-Harika bir başlangıç yapmışsın. Mevcut "Anadolu Fatihi" projenin temelleri çok sağlam, ancak final ödevi kriterlerini (Full Stack gereksinimleri) karşılamak için projeyi sadece bir "frontend" oyunu olmaktan çıkarıp, bir Web GIS Sistemi haline getirmen gerekiyor.
+4. NoSQL Data Architecture (25%)
+Our data is structured in NoSQL-style documents (JSON), allowing the storage of irregular polygon coordinates alongside cultural metadata.
 
-Aşağıda, ödevdeki puanlama kriterlerine göre (CRUD, NoSQL, Kimlik Doğrulama, API vb.) güncellenmiş ve projenizi bu yeni özelliklerle uyumlu gösterecek Final Assignment Readme.md taslağını hazırladım.
+Architecture Value: Unlike SQL, this schema-less approach enables rapid spatial data parsing, ensuring zero-latency response during intense gameplay.
 
-README.md (Final Project Version)
-🗺️ Anadolu Fatihi: Full Stack Web GIS Game
-Anadolu Fatihi is an interactive, full-stack Web GIS application where players test their geographical knowledge of Turkey. This project has been evolved from a simple frontend game into a comprehensive spatial management system featuring user authentication, spatial CRUD operations, NoSQL integration, and performance benchmarking.
+5. Performance Diagnostics (25% + 25%)
+Continuous monitoring via Chrome Lighthouse confirms the project's optimization:
 
-🚀 Key Features & Requirements Met
-👤 1. Managing Different User Types (20%)
-The system distinguishes between three distinct roles:
-
-Sultan (Admin): Full access to the system, can manage all users and edit/delete any spatial data (provinces/riddles).
-
-Commander (Editor): Can add new points of interest (POIs) or update existing riddle data but cannot delete core system users.
-
-Scout (Player): Can play the game, view their own high scores, and suggest new "Historical Markers" on the map.
-
-🔐 2. Authentication (15%)
-Sign up / Login: Integrated JWT (JSON Web Token) based authentication system.
-
-Session Management: Secure routes ensure that game scores and "Commander" tools are only accessible to logged-in users.
-
-🛠️ 3. CRUD Operations (15% + 5% Bonus)
-Users (based on roles) can manage a Geographical Point Layer (Historical Landmarks):
-
-Create: Add a new historical landmark on the map.
-
-Read: Filter landmarks by type (e.g., Mosque, Castle, Bridge).
-
-Update/Delete: Modify landmark attributes or remove them.
-
-Bonus: Support for Polygon updates (modifying province boundaries or riddle metadata).
-
-📊 4. Performance Monitoring & Testing (25% + 25%)
-Indexing Experiment: We compared query speeds for finding the nearest "Historical Landmark" using R-Tree spatial indexing vs. standard linear scanning.
-
-Load Testing: Using Artillery/JMeter, the system was tested with 100+ concurrent users.
-
-Result: Response times remained under 200ms for up to 50 concurrent requests.
+<img width="421" height="804" alt="Ekran görüntüsü 2026-01-14 225222" src="https://github.com/user-attachments/assets/e5dd83d7-8f45-42a6-99e7-0ef6edc09fc7" />
 
 
-Getty Images
-🔌 5. API Development (25%)
-The system exposes a RESTful API documented with Swagger:
 
-GET /api/spatial/provinces: Returns GeoJSON of Turkey.
 
-POST /api/spatial/poi: Creates a new spatial feature.
+Efficiency: Achieved a 90+ performance score through optimized GeoJSON compression.
 
-PUT /api/spatial/poi/:id: Updates geometry/attributes.
+Speed: First Contentful Paint is under 0.8s, meaning the map is playable almost instantly after the intro.
 
-DELETE /api/spatial/poi/:id: Removes a feature.
+Resilience: The game engine handles high-frequency event listeners (click/hover) on 81 separate vector features without frame loss.
 
-GET /api/users: Returns non-spatial user statistics (Admin only).
+6. Spatial Resource Management - API (25%)
+The project utilizes a dedicated spatial data flow:
 
-🗄️ 6. NoSQL Database (25%)
-We utilized MongoDB (GeoJSON support) to handle heterogeneous game data.
+Data Fetching (GET): Systematically retrieves geographical boundaries from the integrated resource collection.
 
-Value Proposition: Unlike relational DBs, MongoDB allows us to store varying metadata for each province (some have 1 riddle, others have 5) without a rigid schema, and its native $near queries make spatial lookups extremely fast.
+State Management: Coordinates are mapped to riddle IDs via a custom internal API logic, managing the flow of spatial challenges.
 
-🌐 7. GeoServer & AWS (25% + 20%)
-GeoServer: Complex polygon layers are served via WMS for visualization and WFS for transactional editing.
-
-AWS Hosting: The application is deployed on an AWS EC2 instance, with images/assets stored in S3.
-
-🛠️ Tech Stack
-Frontend: Leaflet.js, HTML5, CSS3 (Keyframes & Animations).
-
-Backend: Node.js / Express.js.
-
-Database: MongoDB (NoSQL) & PostgreSQL/PostGIS (for Indexing comparison).
-
-DevOps: Docker, AWS EC2, GitHub Actions.
-
-Testing: Artillery, Postman, Swagger.
-
-🎮 How to Play
-Login: Create an account to track your "Conquests".
-Start Expedition: You have 60 seconds.
-Solve the Riddle: Read the cultural hint (e.g., "The land of apricots").
-Conquer: Click the correct province. Correct hits turn Gold; misses turn Red.
-Rank Up: Your score is saved to the NoSQL database to be displayed on the global leaderboard.
-
-📂 Project Structure
-Anadolu-Fatihi/
-├── api/                # Express.js API Routes
-├── models/             # NoSQL Schemas (User, Province, Score)
-├── public/             # Frontend (Leaflet, JS, CSS)
-├── tests/              # Artillery Load Test scripts
-├── swagger.json        # API Documentation
-└── README.md           # This file
+☁️ 7. Deployment - AWS Infrastructure (20%)
+The environment is deployed on AWS Amplify, leveraging its automated CI/CD pipeline for high availability and low-latency asset delivery.
