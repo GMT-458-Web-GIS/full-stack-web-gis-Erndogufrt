@@ -25,7 +25,12 @@ button:hover:not(:disabled) { background: #c5a059; color: #000; box-shadow: 0 0 
 button:disabled { border-color: #444; color: #444; cursor: not-allowed; }
 
 /* Oyun Alanı */
-#map { height: 100vh; width: 100%; background: #1a1a1a; }
+#map {
+    height: 100vh !important; /* Ekranın tamamını kaplasın ✨ */
+    width: 100%;
+    background: #1a1a1a; /* Harita gelene kadar koyu asil bir renk */
+    z-index: 1; /* Diğer her şeyin altında ama görünür olsun */
+}
 
 #stats {
     position: absolute; top: 20px; right: 20px; z-index: 1000;
@@ -153,4 +158,42 @@ button:disabled { border-color: #444; color: #444; cursor: not-allowed; }
 .footer-links a {
     color: #c5a059;
     text-decoration: none;
+}
+
+#stats div {
+    display: block !important;
+    margin-bottom: 5px;
+}
+
+/* Oyun içindeki mod seçim alanını tamamen gizle 🕵️‍♀️ */
+#mode-selector {
+    display: none !important;
+}
+/* Şehzade modundayken stats içindeki İLK satırı (süreyi) tamamen yok et! 🕵️‍♀️ */
+body.explorer-mode #stats div:first-child {
+    display: none !important;
+}
+
+/* Haritadaki şehir isimlerini ve gereksiz etiketleri tamamen gizle 🙈 */
+.leaflet-pane .leaflet-marker-pane, 
+.leaflet-pane .leaflet-shadow-pane, 
+.leaflet-pane .leaflet-tooltip-pane {
+    display: none !important;
+}
+
+/* Haritadaki o sinsi küçük yazıların (Labels) görünmesini engeller */
+.leaflet-container .leaflet-overlay-pane svg path {
+    pointer-events: auto;
+}
+
+/* Stats kutusunu kırmızı yanıp söndüren efekt 🚨 */
+.emergency-blink {
+    border: 2px solid #ff4444 !important;
+    animation: pulse-red 0.5s infinite alternate !important;
+    background: rgba(100, 0, 0, 0.9) !important;
+}
+
+@keyframes pulse-red {
+    from { box-shadow: 0 0 5px #ff4444; }
+    to { box-shadow: 0 0 25px #ff0000; }
 }
