@@ -1,24 +1,24 @@
-// OYUN VERİLERİ VE DEĞİŞKENLER
-window.map = null; // Başına window. ekleyerek her yerden görünür yaptık ✨
+
+window.map = null; 
 let geoJsonLayer;
 let activeQuests = [];
 let currentQ = 0;
 let score = 0;
 let fails = 0;
-// Dosyanın en başında olduğundan emin ol tatlım ✨
+
 let timeLeft = 60;
-let timerInterval = null; // null olarak başlatıyoruz
+let timerInterval = null; 
 
 
 
-// Firebase Modülleri
+
 
 import { getFirestore, doc, setDoc, collection, addDoc, getDocs, serverTimestamp} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
-// Arkadaşının Config Bilgileri
+
 const firebaseConfig = {
   apiKey: "AIzaSyCZRzxA0EYpUrIenflEx79iuVtK523S7tE",
   authDomain: "anadolu-fatihi.firebaseapp.com",
@@ -29,14 +29,12 @@ const firebaseConfig = {
   measurementId: "G-4YS3EGH9SF"
 };
 
-// Firebase Başlatma
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app); // Veritabanını başlattık 🗄️
+const db = getFirestore(app); 
 
-// --- BİLMECELERİ FİREBASE'DEN YÖNETME ---
 
-// 1. Bilmeceleri Veritabanına İlk Kez Yükleme (Veya Güncelleme)
 async function saveRiddleToFirebase(sehir, yeniBilmece) {
     try {
         await setDoc(doc(db, "bilmeceler", sehir), {
@@ -48,11 +46,11 @@ async function saveRiddleToFirebase(sehir, yeniBilmece) {
     }
 }
 
-// startGame fonksiyonunun içine ekle ✨
+
 async function loadRiddlesFromFirebase() {
     const querySnapshot = await getDocs(collection(db, "bilmeceler"));
     querySnapshot.forEach((doc) => {
-        riddles[doc.id] = doc.data().text; // Database'deki güncel metni listeye al
+        riddles[doc.id] = doc.data().text; 
     });
     console.log("Database'den taze bilmeceler geldi! 📜✨");
 }
@@ -71,13 +69,13 @@ window.editRiddle = async function(sehir) {
     }
 };
 
-// --- EKRAN GEÇİŞ FONKSİYONU ---
+
 window.toggleAuth = function() {
     document.getElementById('login-box').classList.toggle('hidden');
     document.getElementById('signup-box').classList.toggle('hidden');
 }
 
-// --- KAYIT OLMA (SIGN UP) ---
+
 document.getElementById('btn-signup-submit').addEventListener('click', async () => {
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
@@ -91,7 +89,7 @@ document.getElementById('btn-signup-submit').addEventListener('click', async () 
     }
 });
 
-// --- GİRİŞ YAPMA (LOGIN) FONKSİYONU ---
+
 document.getElementById('btn-login').addEventListener('click', async () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
@@ -99,16 +97,15 @@ document.getElementById('btn-login').addEventListener('click', async () => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         
-        // 1. Siyah Perdeyi (Giriş Ekranını) Kökten Kaldır
+   
         document.getElementById('auth-screen').style.display = 'none'; 
-        // ZORLAMA: Giriş yapan herkes Fatihtir! ⚔️
+    
         const conquerorRadio = document.querySelector('input[value="conqueror"]');
         if (conquerorRadio) conquerorRadio.checked = true;
-        
-        // 2. Hikaye Ekranını (Intro) Görünür Yap
+  
         const intro = document.getElementById('intro-screen');
         if(intro) {
-            intro.classList.remove('hidden'); // Siyahlık burada gidecek! ✨
+            intro.classList.remove('hidden'); 
         }
         
     } catch (error) {
@@ -117,14 +114,13 @@ document.getElementById('btn-login').addEventListener('click', async () => {
 });
 
 
-// --- MİSAFİR DEVAM ET ---
 document.getElementById('btn-guest').addEventListener('click', () => {
-    // 1. Siyah Perdeyi Kaldır
+  
     document.getElementById('auth-screen').style.display = 'none'; 
-     // ZORLAMA: Misafirler Şehzade modunda başlar 🏰
+    
     const explorerRadio = document.querySelector('input[value="explorer"]');
     if (explorerRadio) explorerRadio.checked = true;
-    // 2. Hikaye Ekranını (Intro) Görünür Yap ✨ (Eksik olan buydu!)
+
     const intro = document.getElementById('intro-screen');
     if(intro) {
         intro.classList.remove('hidden'); 
@@ -134,7 +130,6 @@ document.getElementById('btn-guest').addEventListener('click', () => {
 });
 
 
-// Bilmece listesi
 const riddles = {
   "Adana": "Türkiye’nin en sıcak illerinden biri olup kebabıyla ünlü il hangisidir?",
   "Adıyaman": "Nemrut Dağı kalıntılarının bulunduğu şehir hangisidir?",
@@ -212,7 +207,7 @@ const riddles = {
   "Zonguldak": "Taş kömürüyle ünlü il hangisidir?"
 };
 
-// 1. SAYFA YÜKLENDİĞİNDE HİKAYEYİ YAZDIR
+
 
 
 window.onload = function() {
@@ -222,7 +217,7 @@ window.onload = function() {
     const writerElement = document.getElementById('story-writer');
     let i = 0;
 
-    // Daktilo Efekti Fonksiyonu
+
     function typeWriter() {
         if (i < storyText.length) {
             writerElement.innerHTML += storyText.charAt(i);
@@ -252,7 +247,7 @@ window.onload = function() {
 function startTimer() {
     console.log("Süreci Başlatıyoruz Komutan! 🔥");
     
-    // Eğer çalışan eski bir sayaç varsa durdur ✨
+
     if (timerInterval) clearInterval(timerInterval);
 
     timeLeft = 60; 
@@ -263,7 +258,7 @@ function startTimer() {
         timeLeft--;
         if (timerElement) timerElement.innerText = timeLeft;
 
-        // 10 saniye kala heyecan artsın (Blink efekti) 🚨
+     
         const statsBox = document.getElementById('stats');
         if (statsBox && timeLeft <= 10) {
             statsBox.classList.add('emergency-blink');
@@ -271,7 +266,7 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            endGame(true); // Süre dolunca oyunu bitir ✅
+            endGame(true); 
         }
     }, 1000);
 }
@@ -296,7 +291,7 @@ function fireConfetti() {
 
 // HARİTA OLUŞTURMA
 function initMap() {
-    // Haritayı window.map'e mühürleyelim ✨
+  
     window.map = L.map('map', { 
         zoomControl: false, 
         minZoom: 5,
