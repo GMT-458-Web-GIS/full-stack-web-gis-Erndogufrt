@@ -1,4 +1,8 @@
 🏰 Anadolu Fatihi: A Spatial Geography Challenge
+
+[GMT 458 – Eren Dogu Firat - Anadolu Fatihi.pdf](https://github.com/user-attachments/files/24662898/GMT.458.Eren.Dogu.Firat.-.Anadolu.Fatihi.pdf)
+
+
 Production URL (AWS): https://fatih.d7eotuva7xfmf.amplifyapp.com/
 
 📜 Project Overview & Technical Compliance
